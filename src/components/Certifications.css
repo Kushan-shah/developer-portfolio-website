@@ -1,0 +1,462 @@
+.certifications-section {
+  position: relative;
+  min-height: auto;
+  padding: 100px 0;
+  overflow: hidden; 
+}
+
+.cert-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- 3D COVERFLOW WRAPPER --- */
+.cert-3d-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 30px;
+  background: rgba(8, 8, 8, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.8), 0 30px 80px rgba(0,0,0,0.5);
+  padding: 50px 0 35px 0;
+  overflow: hidden;
+  transition: border-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+.cert-3d-wrapper:hover {
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.8), 0 40px 100px rgba(0,0,0,0.6);
+}
+
+.carousel-ambient-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.8s ease;
+  opacity: 0.9;
+}
+
+.carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px 20px 50px;
+  position: relative;
+  z-index: 20;
+}
+
+.carousel-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 80px;
+}
+
+.counter-current {
+  font-size: 3rem;
+  font-weight: 800;
+  transition: color 0.6s ease;
+  line-height: 1;
+  text-shadow: 0 0 30px currentColor;
+}
+
+.counter-sep {
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.15);
+  margin: 0 4px;
+}
+
+.counter-total {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.3);
+}
+
+/* Active cert label in header */
+.cert-active-label {
+  text-align: center;
+  flex: 1;
+  padding: 0 20px;
+}
+
+.cert-active-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: color 0.6s ease;
+  margin-bottom: 4px;
+}
+
+.cert-active-issuer {
+  font-size: 0.8rem;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--accent);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 20;
+}
+
+.nav-btn:hover {
+  background: rgba(94, 235, 216, 0.15);
+  transform: scale(1.15);
+  box-shadow: 0 0 25px rgba(94, 235, 216, 0.25);
+  border-color: var(--accent);
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
+.carousel-container {
+  position: relative;
+  height: 520px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  margin: 20px 0;
+}
+
+/* --- BASE CARD --- */
+.carousel-card {
+  position: absolute;
+  width: 420px;
+  background: rgba(15, 15, 15, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.cert-image-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: #0a0a0a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  overflow: hidden;
+}
+
+.cert-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.active-card .cert-image-container img {
+  transform: scale(1.02);
+}
+
+.cert-overlay-glare {
+  position: absolute;
+  top: 0; left: -100%; 
+  width: 200%; height: 100%;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 55%, transparent 60%);
+  pointer-events: none;
+  transition: left 0.7s ease;
+}
+
+.active-card:hover .cert-overlay-glare {
+  left: 100%;
+}
+
+.cert-card-content {
+  padding: 25px 30px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cert-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  border: 1px solid;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+}
+
+.cert-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.cert-issuer {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.verify-btn {
+  margin-top: auto; 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  width: max-content;
+  font-weight: 600;
+}
+
+.verify-btn:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(94, 235, 216, 0.15);
+}
+
+/* --- 3D POSITIONAL CLASSES --- */
+
+.active-card {
+  transform: translateX(0) scale(1) rotateY(0deg);
+  z-index: 10;
+  opacity: 1;
+  box-shadow: 
+    0 30px 60px rgba(0,0,0,0.8), 
+    0 0 0 1px rgba(255,255,255,0.12),
+    0 0 80px var(--active-color, rgba(94, 235, 216, 0.2));
+  border-color: rgba(255,255,255,0.2);
+  cursor: default;
+}
+
+/* Animated border shine on active card */
+.active-card::after {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border-radius: 21px;
+  background: conic-gradient(from var(--angle, 0deg), transparent 70%, var(--active-color, var(--accent)) 85%, transparent 100%);
+  z-index: -1;
+  opacity: 0.6;
+  animation: cardBorderSpin 4s linear infinite;
+}
+
+@keyframes cardBorderSpin {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+.prev-1 {
+  transform: translateX(-60%) scale(0.78) rotateY(25deg);
+  z-index: 5;
+  opacity: 0.45;
+  filter: brightness(0.5) saturate(0.5);
+}
+
+.prev-1:hover { opacity: 0.65; filter: brightness(0.65) saturate(0.7); }
+
+.next-1 {
+  transform: translateX(60%) scale(0.78) rotateY(-25deg);
+  z-index: 5;
+  opacity: 0.45;
+  filter: brightness(0.5) saturate(0.5);
+}
+
+.next-1:hover { opacity: 0.65; filter: brightness(0.65) saturate(0.7); }
+
+.prev-2 {
+  transform: translateX(-90%) scale(0.65) rotateY(45deg);
+  z-index: 2;
+  opacity: 0.15;
+  filter: brightness(0.3) saturate(0.2) blur(3px);
+  pointer-events: none;
+}
+
+.next-2 {
+  transform: translateX(90%) scale(0.65) rotateY(-45deg);
+  z-index: 2;
+  opacity: 0.15;
+  filter: brightness(0.3) saturate(0.2) blur(3px);
+  pointer-events: none;
+}
+
+/* --- PROGRESS BAR (key-based remount fix) --- */
+.carousel-progress-bar {
+  display: flex;
+  gap: 6px;
+  padding: 0 50px;
+  position: relative;
+  z-index: 20;
+  margin-top: 10px;
+}
+
+.progress-segment {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.progress-segment:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.progress-segment .progress-fill {
+  width: 0;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--seg-color, var(--accent));
+  box-shadow: 0 0 10px var(--seg-color, var(--accent));
+}
+
+.progress-segment.active .progress-fill {
+  animation: progressFill var(--cycle-time, 5000ms) linear forwards;
+}
+
+@keyframes progressFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* --- SECONDARY INFO GRID --- */
+.secondary-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.info-block {
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(20, 20, 20, 0.5);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.info-block:hover {
+  transform: translateY(-8px);
+  border-color: rgba(94, 235, 216, 0.2);
+  background: rgba(25, 25, 25, 0.7);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.block-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 20px;
+}
+
+.block-icon {
+  color: var(--accent);
+  width: 28px; height: 28px;
+  filter: drop-shadow(0 0 8px var(--accent));
+}
+
+.block-header h3 {
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+.accent-bullet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accent-bullet-list li {
+  position: relative;
+  padding-left: 30px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.accent-bullet-list li:hover {
+  color: var(--text-main);
+  transform: translateX(5px);
+}
+
+.accent-bullet-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.accent-bullet-list li:hover::before {
+  transform: translateX(3px);
+}
+
+@media (max-width: 1024px) {
+  .secondary-info-grid {
+    grid-template-columns: 1fr;
+  }
+  .carousel-card {
+    width: 380px;
+  }
+  .cert-image-container {
+    height: 240px;
+  }
+  .cert-active-label {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-card {
+    width: 280px;
+  }
+  .cert-image-container {
+    height: 200px;
+  }
+  .carousel-header {
+    padding: 0 20px 20px 20px;
+  }
+  .carousel-progress-bar {
+    padding: 0 20px;
+  }
+  .prev-1 { transform: translateX(-55%) scale(0.8) rotateY(25deg); }
+  .next-1 { transform: translateX(55%) scale(0.8) rotateY(-25deg); }
+  .prev-2, .next-2 { opacity: 0; pointer-events: none; }
+  .counter-current { font-size: 1.8rem; }
+  .cert-active-label { display: none; }
+}

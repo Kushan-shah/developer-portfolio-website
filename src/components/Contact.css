@@ -1,0 +1,210 @@
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.contact-container {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.contact-title {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 30px 0 60px 0;
+  background: linear-gradient(90deg, var(--text-main) 0%, rgba(255,255,255,0.4) 50%, var(--text-main) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.text-muted {
+  color: #4a5568;
+}
+
+.contact-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin-bottom: 50px;
+  box-shadow: 0 0 15px rgba(94, 235, 216, 0.2);
+  position: relative;
+}
+
+/* Pulsing glow dot on divider center */
+.contact-divider::after {
+  content: '';
+  position: absolute;
+  top: -4px; left: 50%;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent);
+  transform: translateX(-50%);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.contact-column {
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: transparent;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-column::before {
+  content: '';
+  position: absolute;
+  top: 15%; left: 0;
+  width: 3px; height: 0;
+  background: linear-gradient(to bottom, var(--accent), #a252ff);
+  border-radius: 2px;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-column:hover {
+  background: rgba(20, 20, 20, 0.5);
+  border-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.contact-column:hover::before {
+  height: 70%;
+}
+
+.column-title {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  margin-bottom: 25px;
+  letter-spacing: 0.1em;
+  transition: color 0.3s ease;
+}
+
+.contact-column:hover .column-title {
+  color: var(--accent);
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-links li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-left: -14px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sliding accent underline on hover */
+.contact-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 14px; right: 14px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.contact-links li a:hover::after {
+  transform: scaleX(1);
+}
+
+.contact-links li a:hover {
+  color: var(--accent);
+  background: rgba(94, 235, 216, 0.05);
+  transform: translateX(8px);
+  letter-spacing: 0.02em;
+}
+
+.arrow-icon {
+  opacity: 0.3;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-links li a:hover .arrow-icon {
+  transform: translate(5px, -5px);
+  opacity: 1;
+  color: var(--accent);
+}
+
+.location-info p {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.availability {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.availability span.text-mono {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+  animation: pulse-green 2s infinite;
+  position: relative;
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  top: -4px; left: -4px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  animation: pulse-green 2s infinite 0.5s;
+}
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

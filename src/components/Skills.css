@@ -1,0 +1,144 @@
+.skills-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated gradient mesh glow behind skill marquee */
+.skills-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 600px; height: 600px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(94,235,216,0.08) 0%, rgba(162,82,255,0.05) 40%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: meshPulse 6s ease-in-out infinite;
+}
+
+@keyframes meshPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+.section-header {
+  margin-bottom: 60px;
+}
+
+.section-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  /* Shimmer text effect */
+  background: linear-gradient(90deg, var(--text-main) 0%, var(--accent) 50%, var(--text-main) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.title-underline {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), #a252ff);
+  margin-top: 15px;
+  border-radius: 2px;
+  box-shadow: 0 0 12px var(--accent);
+}
+
+/* Marquee Styles */
+.marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 40px 0;
+}
+
+.marquee-row {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Underglow bar beneath each marquee row */
+.marquee-row::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(94, 235, 216, 0.15), transparent);
+}
+
+.marquee-content {
+  display: flex;
+  flex-shrink: 0;
+  gap: 40px;
+  padding-right: 40px;
+  animation: scrollX 40s linear infinite;
+}
+
+.marquee-row:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+.marquee-row.right .marquee-content {
+  animation-direction: normal;
+}
+
+.marquee-row.left .marquee-content {
+  animation-direction: reverse;
+}
+
+/* Pause marquee on hover (2026 trend) */
+.marquee-row:hover .marquee-content {
+  animation-play-state: paused;
+}
+.marquee-item {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.03);
+  letter-spacing: -0.02em;
+  transition: all 0.4s ease;
+  cursor: default;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+}
+
+.marquee-item:hover {
+  color: transparent;
+  background: linear-gradient(135deg, #5eebd8, #a252ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 0px rgba(255, 255, 255, 0.0);
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 20px rgba(94, 235, 216, 0.4));
+}
+
+@keyframes scrollX {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% - 40px)); } /* Scroll exactly one content width including gap */
+}
+
+@media (max-width: 768px) {
+  .section-header { margin-bottom: 40px; }
+  .marquee-item { font-size: 3rem; gap: 20px; }
+  .marquee-content { gap: 20px; padding-right: 20px; }
+}
