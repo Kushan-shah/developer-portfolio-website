@@ -23,8 +23,10 @@ const ParticleBackground = () => {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
     // --- Stars ---
-    const starCount = 180;
+    const starCount = isMobile ? 60 : 180;
     const stars = [];
 
     class Star {
@@ -181,8 +183,10 @@ const ParticleBackground = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       time += 1;
 
-      // Draw constellation lines first (behind stars)
-      drawConstellations();
+      // Draw constellation lines first (behind stars) — skip on mobile for performance
+      if (!isMobile) {
+        drawConstellations();
+      }
       
       // Stars
       for (let i = 0; i < stars.length; i++) {
@@ -196,9 +200,7 @@ const ParticleBackground = () => {
         shootingStars[i].draw();
       }
       
-      if (!window.matchMedia("(max-width: 768px)").matches) {
-        animationFrameId = requestAnimationFrame(animate);
-      }
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();

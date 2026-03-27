@@ -184,3 +184,58 @@
   transform: translateY(-4px);
 }
 
+/* ===== MOBILE-ONLY FIXES (touch devices) ===== */
+/* Disable ALL pulsing/sweeping animations that cause heartbeat on mobile */
+@media (hover: none), (max-width: 768px) {
+  /* Kill divider pulse & sweep — main heartbeat culprit */
+  .divider-label::before {
+    animation: none !important;
+    display: none;
+  }
+  .divider-line::after {
+    animation: none !important;
+    display: none;
+  }
+
+  /* Make scroll-reveal instant — no transition flicker from address bar resize */
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .scroll-reveal .section-title {
+    clip-path: none !important;
+    transition: none !important;
+  }
+  .scroll-reveal .title-underline {
+    transform: scaleX(1) !important;
+    transition: none !important;
+  }
+
+  /* Disable progress bar shimmer animation */
+  .scroll-progress-fill {
+    animation: none !important;
+  }
+
+  /* Prevent hover states from getting stuck on touch */
+  .project-card:hover .card-glow-effect,
+  .project-card:hover .noise-grain {
+    opacity: 0 !important;
+  }
+  .project-card:hover {
+    box-shadow: none !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+  }
+  .project-card::before {
+    animation: none !important;
+    display: none !important;
+  }
+  .project-card:hover .project-bg {
+    transform: none !important;
+    filter: none !important;
+  }
+  .project-card {
+    transform: none !important;
+  }
+}
+
