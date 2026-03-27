@@ -6,7 +6,10 @@ import './Home.css';
 const roles = ['SOFTWARE ENGINEER', 'MACHINE LEARNING ENGINEER'];
 
 const Home = () => {
-  const [isMobile] = useState(() => window.matchMedia("(max-width: 768px)").matches);
+  const [isMobile] = useState(() => 
+    window.matchMedia("(max-width: 768px)").matches || 
+    window.matchMedia("(hover: none)").matches
+  );
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
